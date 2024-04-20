@@ -11,7 +11,7 @@ const channelId: any = Bun.env.CHANNELID;
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences, GatewayIntentBits.MessageContent]  });
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user?.tag}!`);
+    console.log(`Logged in!`);
 });
 
 // Sự kiện khi có người chơi vào trò chơi
