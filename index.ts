@@ -15,19 +15,21 @@ client.on('ready', () => {
 });
 
 // Sự kiện khi có người chơi vào trò chơi
-client.on('presenceUpdate', (oldPresence, newPresence: any) => {
+client.on('presenceUpdate', (oldPresence: any, newPresence: any) => {
     const member = newPresence.member;
     // Kiểm tra xem thành viên đang chơi game mới hay không
-    if (newPresence.activities.length && newPresence.activities[0].type == '0') {
+    if (newPresence.activities.length && newPresence.activities[0].type == '0' && oldPresence?.activities[0]?.type != '0') {
         const gameName = newPresence.activities[0].name;
-        const nickname = member?.nickname;
+        if(gameName == oldPresence?.activities[0]?.name) return
+        const nickname = member?.nickname || member?.displayName;
         // const gameDetails = newPresence.activities[0].details || 'No details available';
         // const gameState = newPresence.activities[0].state || 'No state available';
 
         const message = `${nickname} Đã vào game ${gameName}`;
+        console.log(`message---->`, message);
         const channel = client.channels.cache.get(channelId) as TextChannel | undefined;
         if (channel) {
-            channel.send(message);
+            // channel.send(message);
         } else {
             console.log('Channel not found');
         }
